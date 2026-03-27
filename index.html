@@ -144,30 +144,24 @@
   .offer-title { font-family: 'Noto Serif KR', serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
   .offer-sub { font-size: 13px; color: var(--text-dim); margin-bottom: 24px; }
 
-  /* Price table */
-  .price-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-  .price-table thead tr { border-bottom: 1px solid rgba(123,79,255,0.25); }
-  .price-table th { font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--purple-lt); padding: 0 8px 12px; text-align: center; font-weight: 600; }
-  .price-table th:first-child { text-align: left; }
-  .price-table th.webinar-col { color: var(--pink-lt); }
-  .price-table tbody tr { border-bottom: 1px solid rgba(0,0,0,0.04); }
-  .price-table tbody tr:last-child { border-bottom: none; }
-  .price-table tbody tr.highlight-row { background: rgba(123,79,255,0.09); }
-  .price-table td { padding: 16px 8px; text-align: center; font-size: 13px; color: var(--text); vertical-align: middle; }
-  .price-table td:first-child { text-align: left; }
-
-  .plan-name { font-weight: 700; font-size: 14px; color: var(--white); margin-bottom: 2px; }
+  /* Price cards */
+  .price-cards { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+  .price-card { border: 1px solid rgba(123,79,255,0.18); border-radius: 14px; padding: 18px 20px; background: transparent; position: relative; }
+  .price-card.highlight-card { background: rgba(123,79,255,0.07); border-color: rgba(123,79,255,0.35); }
+  .price-card-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .plan-name { font-weight: 700; font-size: 15px; color: var(--white); }
   .plan-sessions { font-size: 11px; color: var(--text-dim); }
   .discount-badge { display: inline-block; background: rgba(123,79,255,0.2); color: var(--purple-lt); font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px; }
   .best-value-tag { display: inline-block; background: var(--purple); color: #fff; font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 20px; letter-spacing: 0.8px; text-transform: uppercase; margin-left: 5px; vertical-align: middle; }
-
-  .price-col { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .price-card-body { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .price-cell { display: flex; flex-direction: column; gap: 2px; }
+  .price-cell-label { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 3px; }
   .price-original { font-size: 11px; color: var(--text-faint); text-decoration: line-through; }
   .price-gong { font-size: 13px; color: var(--text-dim); }
-  .price-final { font-family: 'Noto Serif KR', serif; font-size: 17px; font-weight: 900; color: var(--purple-lt); }
-  .highlight-row .price-final { font-size: 20px; color: var(--purple-lt); }
-  .today-label { font-size: 9px; color: var(--pink); letter-spacing: 0.3px; font-weight: 700; margin-top: 1px; }
-
+  .price-final { font-family: 'Noto Serif KR', serif; font-size: 16px; font-weight: 900; color: var(--purple-lt); }
+  .highlight-card .price-final { font-size: 19px; }
+  .today-label { font-size: 9px; color: var(--pink); letter-spacing: 0.3px; font-weight: 700; margin-top: 2px; }
+  .per-class { font-size: 12px; color: var(--text-dim); }
   .webinar-extra { display: inline-flex; align-items: center; background: rgba(255,107,157,0.13); border: 1px solid rgba(255,107,157,0.3); color: var(--pink-lt); font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
   .no-extra { font-size: 11px; color: var(--text-faint); }
 
@@ -197,13 +191,18 @@
   .footer-urls { font-size: 12px; color: var(--text-dim); }
 
   @media (max-width: 680px) {
-    .page { padding: 36px 20px; }
+    .page { padding: 36px 18px; }
     .takeaway-list, .two-col, .roadmap { grid-template-columns: 1fr; }
     .vs-block { grid-template-columns: 1fr; }
     .vs-divider { display: none; }
+    .offer-block { padding: 24px 18px; }
     .offer-includes { grid-template-columns: 1fr; }
     .code-block { flex-direction: column; text-align: center; }
     .code-note { text-align: center; }
+    .price-card-body { grid-template-columns: 1fr 1fr; }
+    .cta-block { padding: 28px 18px; }
+    .cta-btn { display: block; width: 100%; text-align: center; padding: 16px 24px; margin-bottom: 10px !important; }
+    .cta-btn.outline-btn { padding: 14px 24px; }
   }
 </style>
 </head>
@@ -388,105 +387,109 @@
       <p class="offer-sub">웨비나 참석자와 동일한 혜택을 채팅방 멤버분들께도 드립니다</p>
     </div>
 
-    <table class="price-table">
-      <thead>
-        <tr>
-          <th>플랜</th>
-          <th>공구 할인</th>
-          <th>클래스당</th>
-          <th>공구가</th>
-          <th class="webinar-col">웨비나 추가할인<br>오늘 자정 한정</th>
-          <th>최종가</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- 3개월 -->
-        <tr>
-          <td>
+    <div class="price-cards">
+      <!-- 3개월 -->
+      <div class="price-card">
+        <div class="price-card-header">
+          <div>
             <p class="plan-name">3개월</p>
             <p class="plan-sessions">24 세션</p>
-          </td>
-          <td><span class="discount-badge">16% 할인</span></td>
-          <td><span style="font-size:12px;color:var(--text-dim)">₩28,300</span></td>
-          <td>
-            <div class="price-col">
-              <span class="price-original">₩810,000</span>
-              <span class="price-gong">₩680,000</span>
-            </div>
-          </td>
-          <td><span class="no-extra">—</span></td>
-          <td>
-            <div class="price-col">
-              <span class="price-final">₩680,000</span>
-            </div>
-          </td>
-        </tr>
-        <!-- 6개월 -->
-        <tr>
-          <td>
+          </div>
+          <span class="discount-badge">16% 할인</span>
+        </div>
+        <div class="price-card-body">
+          <div class="price-cell">
+            <span class="price-cell-label">클래스당</span>
+            <span class="per-class">₩28,300</span>
+          </div>
+          <div class="price-cell">
+            <span class="price-cell-label">공구가</span>
+            <span class="price-original">₩810,000</span>
+            <span class="price-gong">₩680,000</span>
+          </div>
+          <div class="price-cell">
+            <span class="price-cell-label">최종가</span>
+            <span class="price-final">₩680,000</span>
+          </div>
+        </div>
+      </div>
+      <!-- 6개월 -->
+      <div class="price-card">
+        <div class="price-card-header">
+          <div>
             <p class="plan-name">6개월</p>
             <p class="plan-sessions">48 세션</p>
-          </td>
-          <td><span class="discount-badge">24% 할인</span></td>
-          <td><span style="font-size:12px;color:var(--text-dim)">₩25,600</span></td>
-          <td>
-            <div class="price-col">
-              <span class="price-original">₩1,620,000</span>
-              <span class="price-gong">₩1,230,000</span>
-            </div>
-          </td>
-          <td><span class="webinar-extra">− ₩50,000</span></td>
-          <td>
-            <div class="price-col">
-              <span class="price-final">₩1,180,000</span>
-              <span class="today-label">⏰ 오늘 자정까지</span>
-            </div>
-          </td>
-        </tr>
-        <!-- 12개월 -->
-        <tr class="highlight-row">
-          <td>
+          </div>
+          <span class="discount-badge">24% 할인</span>
+        </div>
+        <div class="price-card-body">
+          <div class="price-cell">
+            <span class="price-cell-label">클래스당</span>
+            <span class="per-class">₩25,600</span>
+          </div>
+          <div class="price-cell">
+            <span class="price-cell-label">공구가 → 웨비나 추가할인</span>
+            <span class="price-original">₩1,620,000</span>
+            <span class="price-gong">₩1,230,000</span>
+            <span class="webinar-extra" style="margin-top:4px">− ₩50,000</span>
+          </div>
+          <div class="price-cell">
+            <span class="price-cell-label">최종가</span>
+            <span class="price-final">₩1,180,000</span>
+            <span class="today-label">⏰ 오늘 자정까지</span>
+          </div>
+        </div>
+      </div>
+      <!-- 12개월 -->
+      <div class="price-card highlight-card">
+        <div class="price-card-header">
+          <div>
             <p class="plan-name">12개월 <span class="best-value-tag">Best</span></p>
             <p class="plan-sessions">96 세션</p>
-          </td>
-          <td><span class="discount-badge">33% 할인</span></td>
-          <td><span style="font-size:12px;color:var(--text-dim)">₩22,700</span></td>
-          <td>
-            <div class="price-col">
-              <span class="price-original">₩3,240,000</span>
-              <span class="price-gong">₩2,180,000</span>
-            </div>
-          </td>
-          <td><span class="webinar-extra">− ₩100,000</span></td>
-          <td>
-            <div class="price-col">
-              <span class="price-final">₩2,080,000</span>
-              <span class="today-label">⏰ 오늘 자정까지</span>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </div>
+          <span class="discount-badge">33% 할인</span>
+        </div>
+        <div class="price-card-body">
+          <div class="price-cell">
+            <span class="price-cell-label">클래스당</span>
+            <span class="per-class">₩22,700</span>
+          </div>
+          <div class="price-cell">
+            <span class="price-cell-label">공구가 → 웨비나 추가할인</span>
+            <span class="price-original">₩3,240,000</span>
+            <span class="price-gong">₩2,180,000</span>
+            <span class="webinar-extra" style="margin-top:4px">− ₩100,000</span>
+          </div>
+          <div class="price-cell">
+            <span class="price-cell-label">최종가</span>
+            <span class="price-final">₩2,080,000</span>
+            <span class="today-label">⏰ 오늘 자정까지</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- DISCOUNT CODE -->
     <div class="code-block">
       <div>
-        <p class="code-label">결제 시 할인 코드 입력</p>
+        <p class="code-label">결제 시 추가 할인 코드 입력</p>
         <p class="code-value">HAONMOM</p>
       </div>
       <div class="code-note">
-        코드 입력 시 공구 할인 자동 적용<br>
-        오늘 자정 추가할인은 코드 입력 후 자동 반영됩니다
+        오늘 자정까지 코드 입력 시 추가 할인 자동 적용<br>
       </div>
     </div>
 
-    <div class="offer-deadline">⏰ 웨비나 추가할인 (6개월 −5만원 / 12개월 −10만원) · 오늘 3월 27일 자정 마감 · 공구 종료 3월 31일</div>
+    <div class="offer-deadline">⏰ 웨비나 추가할인<br> 
+      6개월 패키지 구매시 추가 5만원 할인<br>
+      12개월 패키지 구매시 추가 10만원 할인<br>
+    </div>
 
     <div class="offer-includes">
-      <div class="offer-include-item">정규 수업 (최대 1:5 소규모)</div>
+      <div class="offer-include-item">라이브 그룹 세션 (최대 1:5 소규모)</div>
       <div class="offer-include-item">AI Talking Bear 플랫폼 이용권</div>
       <div class="offer-include-item">부모포털 + AI 리포트카드</div>
-      <div class="offer-include-item">담임 맞춤 피드백</div>
+      <div class="offer-include-item">멘토 맞춤 피드백</div>
       <div class="offer-include-item">웨비나 후기 작성 시 교육자료 제공</div>
       <div class="offer-include-item">하온맘 커뮤니티 전용 혜택</div>
     </div>
@@ -497,8 +500,8 @@
     <p class="cta-text">웨비나를 못 보셨어도 괜찮아요.<br>지금 시작할 이유는 충분합니다.</p>
     <p class="cta-sub">아크아카데미는 집영어를 대체하는 게 아니에요.<br>영어를 활용해 AI 시대에 핵심 역량을 키우는 프로그램입니다.</p>
     <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap;">
-      <a class="cta-btn" style="margin-bottom:0;" href="https://onboard.arkacademy.io/mini-marvels?product=12-months">미니마블 구매하기 →</a>
-      <a class="cta-btn outline-btn" style="margin-bottom:0;" href="https://arkacademy.channel.io/home">상담하기 →</a>
+      <a class="cta-btn" href="https://onboard.arkacademy.io/mini-marvels?product=12-months">미니마블 구매하기 →</a>
+      <a class="cta-btn outline-btn" href="https://arkacademy.channel.io/home">상담하기 →</a>
     </div>
     <p class="cta-deadline">추가 할인 코드: HAONMOM · 오늘 자정까지 추가할인</p>
   </div>
