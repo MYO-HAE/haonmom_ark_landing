@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ark Academy 웨비나 핵심 요약</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #FFFFFF;
+    --surface:   #F7F7FA;
+    --surface2:  #EFEFF5;
+    --purple:    #7B4FFF;
+    --purple-lt: #6030F0;
+    --purple-glow: rgba(123,79,255,0.06);
+    --purple-border: rgba(123,79,255,0.25);
+    --pink:      #FF4281;
+    --pink-lt:   #E02061;
+    --coral:     #E84545;
+    --white:     #111111;
+    --text:      #333333;
+    --text-dim:  #666666;
+    --text-faint:#999999;
+    --green:     #1CB074;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 15% 10%, rgba(123,79,255,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 85% 85%, rgba(255,107,157,0.06) 0%, transparent 60%);
+    pointer-events: none; z-index: 0;
+  }
+
+  .page {
+    max-width: 900px; margin: 0 auto; padding: 60px 40px;
+    position: relative; z-index: 1;
+  }
+
+  /* HEADER */
+  .header { text-align: center; margin-bottom: 52px; }
+  .brand-line { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 24px; }
+  .brand-logo { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; letter-spacing: 4px; color: var(--purple-lt); text-transform: uppercase; }
+  .brand-divider { width: 40px; height: 1px; background: var(--purple); opacity: 0.35; }
+  .badge { font-size: 11px; letter-spacing: 2px; color: var(--purple-lt); opacity: 0.75; text-transform: uppercase; margin-bottom: 20px; }
+  .main-headline { font-family: 'Noto Serif KR', serif; font-size: clamp(26px,4.2vw,42px); font-weight: 900; line-height: 1.35; color: var(--white); margin-bottom: 14px; }
+  .main-headline em { font-style: normal; color: var(--purple-lt); }
+  .sub-headline { font-size: 14px; color: var(--text-dim); font-weight: 300; }
+  .purple-rule { width: 56px; height: 3px; background: linear-gradient(90deg, var(--purple), var(--pink)); border-radius: 2px; margin: 24px auto 0; }
+
+  /* LABELS */
+  .section-label { font-size: 10px; letter-spacing: 2.5px; color: var(--purple-lt); text-transform: uppercase; margin-bottom: 14px; opacity: 0.8; }
+  .section-gap { margin-bottom: 10px; }
+
+  /* TAKEAWAYS */
+  .takeaways { background: var(--purple-glow); border: 1px solid var(--purple-border); border-radius: 16px; padding: 28px 32px; margin-bottom: 32px; }
+  .takeaway-title { font-family: 'Noto Serif KR', serif; font-size: 16px; font-weight: 700; margin-bottom: 18px; color: var(--purple-lt); }
+  .takeaway-list { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+  .takeaway-item { display: flex; gap: 10px; align-items: flex-start; }
+  .takeaway-num { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; color: var(--purple); opacity: 0.35; line-height: 1; flex-shrink: 0; }
+  .takeaway-text { font-size: 13px; line-height: 1.6; color: var(--text); padding-top: 4px; }
+
+  /* INSIGHT */
+  .insight-block { border-left: 3px solid var(--purple); padding: 22px 26px; margin-bottom: 32px; background: rgba(0,0,0,0.02); border-radius: 0 12px 12px 0; }
+  .insight-text { font-family: 'Noto Serif KR', serif; font-size: 19px; font-weight: 700; line-height: 1.55; color: var(--white); margin-bottom: 10px; }
+  .insight-text span { color: var(--purple-lt); }
+  .insight-sub { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
+
+  /* TWO COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 32px; }
+
+  /* PILLARS */
+  .pillars-block { background: var(--surface); border-radius: 16px; padding: 26px; }
+  .pillar-item { display: flex; align-items: flex-start; gap: 13px; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+  .pillar-item:last-child { border-bottom: none; }
+  .pillar-icon { font-size: 20px; flex-shrink: 0; width: 32px; text-align: center; }
+  .pillar-en { font-size: 10px; letter-spacing: 1.5px; color: var(--purple-lt); text-transform: uppercase; margin-bottom: 2px; }
+  .pillar-kr { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
+  .pillar-desc { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+
+  /* FRAMEWORK */
+  .framework-block { background: var(--surface); border-radius: 16px; padding: 26px; display: flex; flex-direction: column; justify-content: center; }
+  .framework-flow { display: flex; flex-direction: column; gap: 8px; }
+  .framework-step { display: flex; align-items: center; gap: 14px; }
+  .step-tag { font-size: 10px; letter-spacing: 1.5px; color: var(--bg); background: var(--purple); padding: 3px 10px; border-radius: 20px; font-weight: 700; white-space: nowrap; flex-shrink: 0; }
+  .step-content { font-size: 13px; font-weight: 500; color: var(--text); }
+  .step-desc { font-size: 11px; color: var(--text-dim); margin-top: 1px; }
+  .framework-arrow { text-align: center; color: var(--purple); opacity: 0.4; font-size: 16px; padding-left: 50px; }
+  .framework-note { margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(0,0,0,0.06); font-size: 12px; color: var(--purple-lt); font-style: italic; line-height: 1.6; text-align: center; }
+
+  /* VS */
+  .vs-block { background: var(--surface); border-radius: 16px; padding: 26px 30px; margin-bottom: 32px; display: grid; grid-template-columns: 1fr auto 1fr; gap: 22px; align-items: start; }
+  .vs-col-title { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid rgba(0,0,0,0.07); }
+  .vs-col.old .vs-col-title { color: var(--text-faint); }
+  .vs-col.new .vs-col-title { color: var(--purple-lt); }
+  .vs-items { display: flex; flex-direction: column; gap: 8px; }
+  .vs-item { font-size: 13px; line-height: 1.5; padding: 8px 12px; border-radius: 8px; }
+  .vs-col.old .vs-item { color: var(--text-faint); background: rgba(0,0,0,0.02); text-decoration: line-through; text-decoration-color: rgba(0,0,0,0.1); }
+  .vs-col.new .vs-item { color: var(--text); background: var(--purple-glow); }
+  .vs-divider { display: flex; align-items: center; justify-content: center; padding-top: 30px; }
+  .vs-label { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: rgba(0,0,0,0.1); writing-mode: vertical-rl; letter-spacing: 2px; }
+
+  /* ROADMAP */
+  .roadmap { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 32px; }
+  .roadmap-card { background: var(--surface); border-radius: 14px; padding: 20px 16px; position: relative; overflow: hidden; }
+  .roadmap-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .roadmap-card.mm::before { background: linear-gradient(90deg, var(--pink), var(--purple)); }
+  .roadmap-card.yi::before { background: linear-gradient(90deg, var(--purple), var(--purple-lt)); }
+  .roadmap-card.fl::before { background: linear-gradient(90deg, var(--green), var(--purple-lt)); }
+  .roadmap-card.active { border: 1px solid rgba(255,107,157,0.4); background: rgba(255,107,157,0.04); }
+  .roadmap-age { font-size: 10px; color: var(--text-dim); margin-bottom: 5px; }
+  .roadmap-name { font-family: 'Noto Serif KR', serif; font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 5px; }
+  .roadmap-core { font-size: 11px; font-weight: 700; margin-bottom: 10px; padding: 3px 9px; border-radius: 20px; display: inline-block; }
+  .roadmap-card.mm .roadmap-core { color: var(--pink); background: rgba(255,107,157,0.12); }
+  .roadmap-card.yi .roadmap-core { color: var(--purple-lt); background: rgba(123,79,255,0.15); }
+  .roadmap-card.fl .roadmap-core { color: var(--green); background: rgba(94,207,160,0.12); }
+  .roadmap-skills { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .roadmap-skills li { font-size: 11px; color: var(--text-dim); padding-left: 11px; position: relative; line-height: 1.5; }
+  .roadmap-skills li::before { content: '·'; position: absolute; left: 0; color: var(--purple-lt); opacity: 0.5; }
+
+  /* QUOTE */
+  .quote-block { text-align: center; padding: 28px 20px; margin-bottom: 32px; }
+  .quote-mark { font-family: 'Playfair Display', serif; font-size: 72px; color: var(--purple); opacity: 0.15; line-height: 0.5; display: block; margin-bottom: 14px; }
+  .quote-text { font-family: 'Noto Serif KR', serif; font-size: 18px; font-weight: 700; color: var(--white); line-height: 1.7; margin-bottom: 10px; }
+  .quote-text span { color: var(--purple-lt); }
+  .quote-source { font-size: 12px; color: var(--text-dim); }
+
+  /* OFFER */
+  .offer-block { background: linear-gradient(135deg, rgba(123,79,255,0.10), rgba(123,79,255,0.03)); border: 1px solid var(--purple-border); border-radius: 20px; padding: 32px 36px; margin-bottom: 32px; }
+  .offer-header { text-align: center; margin-bottom: 10px; }
+  .offer-program-badge { display: inline-block; background: linear-gradient(135deg, var(--pink), var(--purple)); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 16px; border-radius: 20px; margin-bottom: 14px; }
+  .offer-title { font-family: 'Noto Serif KR', serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .offer-sub { font-size: 13px; color: var(--text-dim); margin-bottom: 24px; }
+
+  /* Price table */
+  .price-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  .price-table thead tr { border-bottom: 1px solid rgba(123,79,255,0.25); }
+  .price-table th { font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--purple-lt); padding: 0 8px 12px; text-align: center; font-weight: 600; }
+  .price-table th:first-child { text-align: left; }
+  .price-table th.webinar-col { color: var(--pink-lt); }
+  .price-table tbody tr { border-bottom: 1px solid rgba(0,0,0,0.04); }
+  .price-table tbody tr:last-child { border-bottom: none; }
+  .price-table tbody tr.highlight-row { background: rgba(123,79,255,0.09); }
+  .price-table td { padding: 16px 8px; text-align: center; font-size: 13px; color: var(--text); vertical-align: middle; }
+  .price-table td:first-child { text-align: left; }
+
+  .plan-name { font-weight: 700; font-size: 14px; color: var(--white); margin-bottom: 2px; }
+  .plan-sessions { font-size: 11px; color: var(--text-dim); }
+  .discount-badge { display: inline-block; background: rgba(123,79,255,0.2); color: var(--purple-lt); font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px; }
+  .best-value-tag { display: inline-block; background: var(--purple); color: #fff; font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 20px; letter-spacing: 0.8px; text-transform: uppercase; margin-left: 5px; vertical-align: middle; }
+
+  .price-col { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .price-original { font-size: 11px; color: var(--text-faint); text-decoration: line-through; }
+  .price-gong { font-size: 13px; color: var(--text-dim); }
+  .price-final { font-family: 'Noto Serif KR', serif; font-size: 17px; font-weight: 900; color: var(--purple-lt); }
+  .highlight-row .price-final { font-size: 20px; color: var(--purple-lt); }
+  .today-label { font-size: 9px; color: var(--pink); letter-spacing: 0.3px; font-weight: 700; margin-top: 1px; }
+
+  .webinar-extra { display: inline-flex; align-items: center; background: rgba(255,107,157,0.13); border: 1px solid rgba(255,107,157,0.3); color: var(--pink-lt); font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
+  .no-extra { font-size: 11px; color: var(--text-faint); }
+
+  /* Code block */
+  .code-block { background: var(--surface2); border: 1px dashed var(--purple-border); border-radius: 12px; padding: 16px 20px; margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .code-label { font-size: 11px; color: var(--text-dim); margin-bottom: 4px; }
+  .code-value { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--purple-lt); letter-spacing: 4px; }
+  .code-note { font-size: 11px; color: var(--text-dim); text-align: right; line-height: 1.6; }
+
+  .offer-deadline { text-align: center; background: rgba(255,107,107,0.10); border: 1px solid rgba(255,107,107,0.28); border-radius: 10px; padding: 13px; font-size: 13px; font-weight: 700; color: var(--coral); margin-bottom: 18px; }
+
+  .offer-includes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .offer-include-item { font-size: 12px; color: var(--text-dim); display: flex; align-items: center; gap: 8px; }
+  .offer-include-item::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+  /* CTA */
+  .cta-block { text-align: center; padding: 36px; background: var(--surface); border-radius: 20px; margin-bottom: 36px; }
+  .cta-text { font-family: 'Noto Serif KR', serif; font-size: 21px; font-weight: 700; color: var(--white); margin-bottom: 8px; line-height: 1.5; }
+  .cta-sub { font-size: 13px; color: var(--text-dim); margin-bottom: 26px; line-height: 1.7; }
+  .cta-btn { display: inline-block; background: linear-gradient(135deg, var(--purple), #5B3FBF); color: #fff; font-weight: 800; font-size: 15px; padding: 16px 48px; border-radius: 50px; text-decoration: none; margin-bottom: 12px; box-shadow: 0 8px 32px rgba(123,79,255,0.35); }
+  .cta-btn.outline-btn { background: #fff; color: var(--purple); border: 2px solid var(--purple); box-shadow: 0 4px 12px rgba(123,79,255,0.15); padding: 14px 46px; }
+  .cta-deadline { font-size: 12px; color: var(--pink); font-weight: 700; }
+
+  /* FOOTER */
+  .footer { text-align: center; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.05); }
+  .footer-brand { font-family: 'Playfair Display', serif; font-size: 13px; letter-spacing: 3px; color: var(--purple-lt); margin-bottom: 5px; }
+  .footer-urls { font-size: 12px; color: var(--text-dim); }
+
+  @media (max-width: 680px) {
+    .page { padding: 36px 20px; }
+    .takeaway-list, .two-col, .roadmap { grid-template-columns: 1fr; }
+    .vs-block { grid-template-columns: 1fr; }
+    .vs-divider { display: none; }
+    .offer-includes { grid-template-columns: 1fr; }
+    .code-block { flex-direction: column; text-align: center; }
+    .code-note { text-align: center; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="brand-line">
+      <div class="brand-divider"></div>
+      <img src="./assets/logogram_black.svg" alt="Ark Academy Logo" style="height: 32px;">
+      <div class="brand-divider"></div>
+    </div>
+    <p class="badge">웨비나 핵심 요약 · March 2025</p>
+    <h1 class="main-headline">영어를 <em>'공부'</em>하는 시대는<br>끝났습니다</h1>
+    <p class="sub-headline">소피아 × 하온맘 | 5–8세 자녀를 둔 집영어맘을 위한 60분 대화</p>
+    <div class="purple-rule"></div>
+  </header>
+
+  <!-- TAKEAWAYS -->
+  <div class="takeaways">
+    <p class="section-label">오늘 가져갈 것 3가지</p>
+    <p class="takeaway-title">이 한 장만 읽어도 오늘 웨비나의 핵심이 담겨 있어요.</p>
+    <div class="takeaway-list">
+      <div class="takeaway-item">
+        <span class="takeaway-num">01</span>
+        <span class="takeaway-text">집영어와 아크가 어떻게 연결되는지</span>
+      </div>
+      <div class="takeaway-item">
+        <span class="takeaway-num">02</span>
+        <span class="takeaway-text">5–8세 아이에게 영어 이전에 뭘 먼저 키워야 하는지</span>
+      </div>
+      <div class="takeaway-item">
+        <span class="takeaway-num">03</span>
+        <span class="takeaway-text">지금 등록했을 때 뭐가 다른지</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY INSIGHT -->
+  <div class="insight-block">
+    <p class="insight-text">영어를 <span>얼마나 배웠냐</span>가 아니라,<br><span>어떻게 배웠냐</span>가 아이의 미래를 결정합니다.</p>
+    <p class="insight-sub">영어 학원 몇 년을 다녀도 한마디 못하는 이유는 단순합니다. 외우고, 맞추고, 틀리면 고치는 구조 안에서는 자기 목소리가 자라지 않습니다. 아크는 완전히 반대로 설계되어 있어요.</p>
+  </div>
+
+  <!-- PILLARS + FRAMEWORK -->
+  <p class="section-label section-gap">아크의 3가지 핵심 기둥 & 성장 구조</p>
+  <div class="two-col">
+    <div class="pillars-block">
+      <p class="section-label">3 Pillars</p>
+      <div class="pillar-item">
+        <span class="pillar-icon">💪</span>
+        <div>
+          <p class="pillar-en">Resilience</p>
+          <p class="pillar-kr">회복탄력성</p>
+          <p class="pillar-desc">실패해도 다시 일어서는 힘 — 교과서로는 가르칠 수 없습니다</p>
+        </div>
+      </div>
+      <div class="pillar-item">
+        <span class="pillar-icon">🤝</span>
+        <div>
+          <p class="pillar-en">Empathy</p>
+          <p class="pillar-kr">공감 능력</p>
+          <p class="pillar-desc">타인의 마음을 이해하는 능력 — 직접 경험해야만 생깁니다</p>
+        </div>
+      </div>
+      <div class="pillar-item">
+        <span class="pillar-icon">🌱</span>
+        <div>
+          <p class="pillar-en">Growth Mindset</p>
+          <p class="pillar-kr">성장 마인드셋</p>
+          <p class="pillar-desc">도전을 통해 성장할 수 있다는 믿음 — 시도하면서 만들어집니다</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="framework-block">
+      <p class="section-label">성장 순서</p>
+      <div class="framework-flow">
+        <div class="framework-step">
+          <span class="step-tag">STEP 1</span>
+          <div>
+            <p class="step-content">Self-Awareness · 자기 인식</p>
+            <p class="step-desc">나는 누구이고, 무엇을 생각하는가</p>
+          </div>
+        </div>
+        <div class="framework-arrow">↓</div>
+        <div class="framework-step">
+          <span class="step-tag">STEP 2</span>
+          <div>
+            <p class="step-content">Problem Solving · 문제 해결</p>
+            <p class="step-desc">세상을 보고, 해결책을 찾는 힘</p>
+          </div>
+        </div>
+        <div class="framework-arrow">↓</div>
+        <div class="framework-step">
+          <span class="step-tag">STEP 3</span>
+          <div>
+            <p class="step-content">Communication · 영어</p>
+            <p class="step-desc">내 생각을 세상에 전하는 도구</p>
+          </div>
+        </div>
+      </div>
+      <p class="framework-note">"영어는 목적이 아닙니다.<br>아이의 생각을 꺼내는 것이 목표입니다."</p>
+    </div>
+  </div>
+
+  <!-- VS -->
+  <p class="section-label section-gap" style="margin-top:32px">기존 영어 교육 vs 아크</p>
+  <div class="vs-block">
+    <div class="vs-col old">
+      <p class="vs-col-title">기존 교육</p>
+      <div class="vs-items">
+        <div class="vs-item">외우고 맞추는 반복 학습</div>
+        <div class="vs-item">틀리면 바로 교정 → 말하기 두려움 생성</div>
+        <div class="vs-item">영어가 목적 · 시험이 목표</div>
+        <div class="vs-item">선생님 → 학생 단방향 전달</div>
+      </div>
+    </div>
+    <div class="vs-divider"><span class="vs-label">VS</span></div>
+    <div class="vs-col new">
+      <p class="vs-col-title">아크 방식</p>
+      <div class="vs-items">
+        <div class="vs-item">이야기하고 참여하며 자연스럽게 습득</div>
+        <div class="vs-item">흐름을 살리고 나중에 자연스럽게 교정</div>
+        <div class="vs-item">영어는 도구 · 자기 표현이 목표</div>
+        <div class="vs-item">또래와 함께 · 경험이 교사</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROADMAP -->
+  <p class="section-label">성장 로드맵</p>
+  <div class="roadmap">
+    <div class="roadmap-card mm active">
+      <p class="roadmap-age">만 5–7세 · 현재 공구 중 ★</p>
+      <p class="roadmap-name">Mini Marvels</p>
+      <span class="roadmap-core">핵심: 자신감</span>
+      <ul class="roadmap-skills">
+        <li>틀려도 괜찮은 환경에서 영어를 즐기는 것이 목표</li>
+        <li>기초 듣기·말하기</li>
+        <li>정서 지능 & 공감 능력</li>
+        <li>창의력 & 패턴 인식</li>
+      </ul>
+    </div>
+    <div class="roadmap-card yi">
+      <p class="roadmap-age">만 8–11세</p>
+      <p class="roadmap-name">Young Innovators</p>
+      <span class="roadmap-core">핵심: 사고력</span>
+      <ul class="roadmap-skills">
+        <li>영어를 도구로 써서 문제를 해결하는 경험</li>
+        <li>논리적 추론 & 추상적 아이디어</li>
+        <li>AI 리터러시 기초</li>
+        <li>그룹 안에서 자기 역할 찾기</li>
+      </ul>
+    </div>
+    <div class="roadmap-card fl">
+      <p class="roadmap-age">만 12세+</p>
+      <p class="roadmap-name">Future Leaders</p>
+      <span class="roadmap-core">핵심: 영향력</span>
+      <ul class="roadmap-skills">
+        <li>영어로 생각하고 세상에 영향을 만드는 단계</li>
+        <li>커뮤니케이션 스킬 심화</li>
+        <li>핵심 소프트스킬 완성</li>
+        <li>실제 사회적 임팩트 프로젝트</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="quote-block">
+    <span class="quote-mark">"</span>
+    <p class="quote-text">아이들은 <span>준비되면 시작하는 게 아니라</span>,<br>시작하면서 준비됩니다.</p>
+    <p class="quote-source">— 소피아, 웨비나 클로징</p>
+  </div>
+
+  <!-- OFFER / PRICE -->
+  <div class="offer-block">
+    <div class="offer-header">
+      <span class="offer-program-badge">⭐ Mini Marvels · 만 5–7세</span>
+      <p class="offer-title">하온맘 커뮤니티 전용 공구 수강료</p>
+      <p class="offer-sub">웨비나 참석자와 동일한 혜택을 채팅방 멤버분들께도 드립니다</p>
+    </div>
+
+    <table class="price-table">
+      <thead>
+        <tr>
+          <th>플랜</th>
+          <th>공구 할인</th>
+          <th>클래스당</th>
+          <th>공구가</th>
+          <th class="webinar-col">웨비나 추가할인<br>오늘 자정 한정</th>
+          <th>최종가</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 3개월 -->
+        <tr>
+          <td>
+            <p class="plan-name">3개월</p>
+            <p class="plan-sessions">24 세션</p>
+          </td>
+          <td><span class="discount-badge">16% 할인</span></td>
+          <td><span style="font-size:12px;color:var(--text-dim)">₩28,300</span></td>
+          <td>
+            <div class="price-col">
+              <span class="price-original">₩810,000</span>
+              <span class="price-gong">₩680,000</span>
+            </div>
+          </td>
+          <td><span class="no-extra">—</span></td>
+          <td>
+            <div class="price-col">
+              <span class="price-final">₩680,000</span>
+            </div>
+          </td>
+        </tr>
+        <!-- 6개월 -->
+        <tr>
+          <td>
+            <p class="plan-name">6개월</p>
+            <p class="plan-sessions">48 세션</p>
+          </td>
+          <td><span class="discount-badge">24% 할인</span></td>
+          <td><span style="font-size:12px;color:var(--text-dim)">₩25,600</span></td>
+          <td>
+            <div class="price-col">
+              <span class="price-original">₩1,620,000</span>
+              <span class="price-gong">₩1,230,000</span>
+            </div>
+          </td>
+          <td><span class="webinar-extra">− ₩50,000</span></td>
+          <td>
+            <div class="price-col">
+              <span class="price-final">₩1,180,000</span>
+              <span class="today-label">⏰ 오늘 자정까지</span>
+            </div>
+          </td>
+        </tr>
+        <!-- 12개월 -->
+        <tr class="highlight-row">
+          <td>
+            <p class="plan-name">12개월 <span class="best-value-tag">Best</span></p>
+            <p class="plan-sessions">96 세션</p>
+          </td>
+          <td><span class="discount-badge">33% 할인</span></td>
+          <td><span style="font-size:12px;color:var(--text-dim)">₩22,700</span></td>
+          <td>
+            <div class="price-col">
+              <span class="price-original">₩3,240,000</span>
+              <span class="price-gong">₩2,180,000</span>
+            </div>
+          </td>
+          <td><span class="webinar-extra">− ₩100,000</span></td>
+          <td>
+            <div class="price-col">
+              <span class="price-final">₩2,080,000</span>
+              <span class="today-label">⏰ 오늘 자정까지</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- DISCOUNT CODE -->
+    <div class="code-block">
+      <div>
+        <p class="code-label">결제 시 할인 코드 입력</p>
+        <p class="code-value">HAONMOM</p>
+      </div>
+      <div class="code-note">
+        코드 입력 시 공구 할인 자동 적용<br>
+        오늘 자정 추가할인은 코드 입력 후 자동 반영됩니다
+      </div>
+    </div>
+
+    <div class="offer-deadline">⏰ 웨비나 추가할인 (6개월 −5만원 / 12개월 −10만원) · 오늘 3월 27일 자정 마감 · 공구 종료 3월 31일</div>
+
+    <div class="offer-includes">
+      <div class="offer-include-item">정규 수업 (최대 1:5 소규모)</div>
+      <div class="offer-include-item">AI Talking Bear 플랫폼 이용권</div>
+      <div class="offer-include-item">부모포털 + AI 리포트카드</div>
+      <div class="offer-include-item">담임 맞춤 피드백</div>
+      <div class="offer-include-item">웨비나 후기 작성 시 교육자료 제공</div>
+      <div class="offer-include-item">하온맘 커뮤니티 전용 혜택</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <p class="cta-text">웨비나를 못 보셨어도 괜찮아요.<br>지금 시작할 이유는 충분합니다.</p>
+    <p class="cta-sub">아크아카데미는 집영어를 대체하는 게 아니에요.<br>영어를 활용해 AI 시대에 핵심 역량을 키우는 프로그램입니다.</p>
+    <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap;">
+      <a class="cta-btn" style="margin-bottom:0;" href="https://onboard.arkacademy.io/mini-marvels?product=12-months">미니마블 구매하기 →</a>
+      <a class="cta-btn outline-btn" style="margin-bottom:0;" href="https://arkacademy.channel.io/home">상담하기 →</a>
+    </div>
+    <p class="cta-deadline">공구 마감 · 3월 31일 · 코드: HAONMOM · 오늘 자정 추가할인 포함</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p class="footer-brand">ARK ACADEMY</p>
+    <p class="footer-urls">arkacademy.io &nbsp;·&nbsp; @arkacademy.official</p>
+  </footer>
+
+</div>
+</body>
+</html>
